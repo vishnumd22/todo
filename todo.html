@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>ToDO</title>
+
+	<meta  charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  	 <style type="text/css">
+  	 	.row,.test{
+
+  	 	}
+  	 	#input{
+  	 		background-color: lightblue;
+  	 	}
+  	 	#close{
+			float: right;
+			color: red;  	 		
+  	 	}
+  	 	body{
+  	 		background-color: lightgrey;
+  	 	}
+  	 </style>
+
+</head>
+<body>
+	<div class="container">
+
+		
+
+		<div class="row">
+			<div class="col text-center">
+				<h2>To Do</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2 col-lg-8 col-lg-offset-2 col-sm-6 col-sm-offset-3">
+				 <form class="form-group">
+				 	<div class="well">
+				 		<label for="Name">NAME:</label>
+				 		<label class="text-uppercase" for="Name" id="name">Vishnu</label>
+				 	</div>
+				 </form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2 col-lg-8 col-lg-offset-2 col-sm-6 col-sm-offset-3">
+				<form class="form-group"s>
+					<input type="text" id="input" class="form-control" name="smart">
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2 col-lg-8 col-lg-offset-2 col-sm-6 col-sm-offset-3">
+				<ul class="list-group" id="list">
+
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2 col-lg-8 col-lg-offset-2 col-sm-6 col-sm-offset-3">
+				<p class="alert alert-danger" id="error" style="display: none;">
+					<h>CANNOT ADD MORE !!!</h>
+				</p>
+			</div>
+		</div>
+		
+
+	</div>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			count=0;
+			$("#input").keypress(function(e){
+				if(e.keyCode==13)
+				{
+					e.preventDefault();		//to stop refreshing when enter is pressed
+					input=$(this).val();	//to get value of text field
+					input1=input.split(" ");
+
+					if(input1[0]=="name")
+					{
+						name=input.substring(5,input.length);
+						$("#name").text(name);
+					}
+					else if(input1[0]=="todo")
+					{
+						if(count<3)
+						{
+							count=count+1;
+							todo=input.substring(5,input.length);
+							var tolist="<li class='list-group-item'>"+todo+"<div class='glyphicon glyphicon-remove-sign' id='close'></div></li>"
+							$("#list").append(tolist);						
+							
+						}
+						else
+						{
+								$("#error").show().delay(1000).fadeOut();					
+						}
+					}
+					else if(input1[0]=="clear")
+					{
+						$("#list").empty();
+						count=0;
+					}
+				}				
+			});
+
+			$(document).on("click", "#close", function() {
+				count=count-1;
+		    	 $(this).parent().fadeOut(function(){
+		    	 	$(this).remove();
+		    	 });
+		    });
+
+		});
+		
+
+	</script>
+
+</body>
+</html>
